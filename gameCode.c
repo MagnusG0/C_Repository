@@ -77,7 +77,6 @@ int main()
             break;
         }
     }
-
     // win conditions
 
     if ((playertotal <= 21) && (playertotal > dealertotal))

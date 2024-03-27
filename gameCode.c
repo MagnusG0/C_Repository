@@ -1,78 +1,111 @@
 #include <stdio.h>
 #include <time.h>
+#include <stdlib.h>
 #include <windows.h>
 
 int main()
 {
-    int playercard1, playercard2, playertotal, dealercard1, dealercard2, dealertotal; // initialising variables
+    int playercard1, playercard2, playertotal = 0, dealercard1, dealercard2, dealertotal = 0; // initialising variables
     char move;
 
     srand(time(NULL));
+    printf("Welcome to BlackJack!\n");
 
     // player code
     playercard1 = (rand() % 11) + 1;
     playercard2 = (rand() % 11) + 1;
 
-    printf("%d %d\n", playercard1, playercard2);
+    printf("Your Cards: %d %d\n", playercard1, playercard2);
     playertotal = playercard1 + playercard2;
-    printf("%d\n", playertotal);
+    printf("Your total: %d\n", playertotal);
 
-    while (move != "s")
+    while (1)
     {
-        printf("Twist (t) or Stick (s)?\n");
+        printf("Twist (t) or Stick (s)? \n");
         scanf("%c", &move);
 
-        if (move == "t")
+        if (move == 't')
         {
             playertotal = playertotal + ((rand() % 11) + 1);
-            printf("%d\n", playertotal);
+            printf("Player Total: %d\n", playertotal);
         }
-        else
+        else if (move == 's')
+        {
+            printf("You choose to Stick\n");
             break;
-    }
+        }
 
-    if (playertotal > 21)
-    {
-        printf("%d \nYou Lose!", playertotal);
+        else
+        {
+            printf("Invalid input, please try again.\n");
+            break;
+        }
+
+        if (playertotal > 21)
+        {
+            printf("You Bust!\n");
+            break;
+        }
+        if (playertotal == 21)
+        {
+            printf("Natural Blackjack!\n");
+        }
     }
 
     // dealer code
     dealercard1 = (rand() % 11) + 1;
     dealercard2 = (rand() % 11) + 1;
 
-    printf("%d %d\n", dealercard1, dealercard2);
-    dealertotal = dealercard1 + dealercard2;
-    printf("%d\n", dealertotal);
+    printf("Dealer's Cards: %d %d\n", dealercard1, dealercard2);
 
-    int dealerchoice = (rand() % 2) + 1;
-    while (dealerchoice != 2)
+    dealertotal = dealercard1 + dealercard2;
+
+    printf("Dealer's Total: %d\n", dealertotal);
+
+    // int dealerchoice = (rand() % 2) + 1;
+
+    while (dealertotal < 17)
     {
 
-        if (dealerchoice == 1)
+        dealertotal = dealertotal + ((rand() % 11) + 1);
+        Sleep(1000);
+        printf("%d\n", dealertotal);
+
+        if (dealertotal > 21)
         {
-            dealertotal = dealercard1 + ((rand() % 11) + 1);
-            Sleep(1000);
-            printf("%d\n", dealertotal);
-        }
-        else
-        {
+            printf("Dealer Bust!\n");
             break;
-            printf(dealertotal);
         }
     }
 
-    // winning code
+    // win conditions
 
     if ((playertotal <= 21) && (playertotal > dealertotal))
     {
-        printf("You Win!");
+        printf("Player Wins!\n");
     }
-    else if (dealertotal > playertotal)
+    else if ((dealertotal > playertotal) && (dealertotal <= 21))
     {
-        printf("Dealer Wins!");
+        printf("Dealer Wins!\n");
+    }
+    else if (dealertotal > 21)
+    {
+        printf("Player Wins!\n");
+    }
+    else if (playertotal > 21)
+    {
+        printf("Dealer Wins!\n");
     }
     else if (playertotal = dealertotal)
     {
-        printf("Draw - Nobody wins!");
+        printf("It's a draw!s\n");
+    }
+    else if ((playertotal && dealertotal) > 21)
+    {
+        printf("Nobody Wins!\n");
+    }
+    else
+    {
+        printf("Something broke! Get out of my Casino!");
     }
 }

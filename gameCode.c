@@ -78,7 +78,6 @@ int main()
         }
     }
     // win conditions
-
     if ((playertotal <= 21) && (playertotal > dealertotal))
     {
         printf("Player Wins!\n");

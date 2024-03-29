@@ -6,11 +6,9 @@
 int main()
 {
     int playercard1, playercard2, playertotal = 0, dealercard1, dealercard2, dealertotal = 0; // initialising variables
-    char move;
 
     srand(time(NULL));
     printf("Welcome to BlackJack!\n");
-
     // player code
     playercard1 = (rand() % 11) + 1;
     playercard2 = (rand() % 11) + 1;
@@ -19,26 +17,17 @@ int main()
     playertotal = playercard1 + playercard2;
     printf("Your total: %d\n", playertotal);
 
-    while (1)
+    while (playertotal <= 21)
     {
+        char move;
         printf("Twist (t) or Stick (s)? \n");
         scanf("%c", &move);
 
         if (move == 't')
         {
             playertotal = playertotal + ((rand() % 11) + 1);
-            printf("Player Total: %d\n", playertotal);
-        }
-        else if (move == 's')
-        {
-            printf("You choose to Stick\n");
-            break;
-        }
 
-        else
-        {
-            printf("Invalid input, please try again.\n");
-            break;
+            printf("Player Total: %d\n", playertotal);
         }
 
         if (playertotal > 21)
@@ -46,10 +35,20 @@ int main()
             printf("You Bust!\n");
             break;
         }
-        if (playertotal == 21)
+        else if (move == 's')
         {
-            printf("Natural Blackjack!\n");
+            printf("You choose to Stick\n");
+            break;
         }
+        else
+        {
+            printf("Invalid input, please try again.\n");
+        }
+
+        // if (playertotal == 21)
+        // {
+        //     printf("Natural Blackjack!\n");
+        // }
     }
 
     // dealer code
@@ -78,32 +77,55 @@ int main()
         }
     }
     // win conditions
-    if ((playertotal <= 21) && (playertotal > dealertotal))
+    // if ((playertotal <= 21) && (playertotal > dealertotal))
+    // {
+    //     printf("Player Wins!\n"); // test
+    // }
+    // else if ((dealertotal > playertotal) && (dealertotal <= 21))
+    // {
+    //     printf("Dealer Wins!\n");
+    // }
+    // else if (dealertotal > 21)
+    // {
+    //     printf("Player Wins!\n");
+    // }
+    // else if (playertotal > 21)
+    //  {
+    //     printf("Dealer Wins!\n");
+    // }
+    //  else if (playertotal = dealertotal)
+    // {
+    //      printf("It's a draw!\n");
+    // }
+    //  else if ((playertotal && dealertotal) > 21)
+    // {
+    //      printf("Nobody Wins!\n");
+    // }
+    //  else
+    // {
+    //      printf("Something broke! Get out of my Casino!");
+    // }
+    switch (playertotal)
     {
-        printf("Player Wins!\n"); // test
-    }
-    else if ((dealertotal > playertotal) && (dealertotal <= 21))
-    {
-        printf("Dealer Wins!\n");
-    }
-    else if (dealertotal > 21)
-    {
+    case ((playertotal <= 21) && (playertotal > dealertotal)):
         printf("Player Wins!\n");
-    }
-    else if (playertotal > 21)
-    {
+        break;
+    case ((dealertotal > playertotal) && (dealertotal <= 21)):
         printf("Dealer Wins!\n");
-    }
-    else if (playertotal = dealertotal)
-    {
-        printf("It's a draw!s\n");
-    }
-    else if ((playertotal && dealertotal) > 21)
-    {
+        break;
+    case (dealertotal > 21):
+        printf("Player Wins!\n");
+        break;
+    case (playertotal > 21):
+        printf("Dealer Wins!\n");
+        break;
+    case (playertotal = dealertotal):
+        printf("It's a draw!\n");
+        break;
+    case ((playertotal > 21) && (dealertotal > 21)):
         printf("Nobody Wins!\n");
-    }
-    else
-    {
+        break;
+    default:
         printf("Something broke! Get out of my Casino!");
     }
 }
